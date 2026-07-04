@@ -1,351 +1,131 @@
 <!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <meta name="theme-color" content="#111111" />
-  <title>Анонимные факты</title>
-  <style>
-    :root {
-      color-scheme: light;
-      --bg: #f4f4f1;
-      --card: #ffffff;
-      --text: #151515;
-      --muted: #77776f;
-      --line: #e3e3dc;
-      --button: #151515;
-      --button-text: #ffffff;
-      --danger: #a52a2a;
-    }
-
-    * { box-sizing: border-box; }
-
-    html, body {
-      margin: 0;
-      min-height: 100%;
-      background: var(--bg);
-      color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-    }
-
-    body {
-      min-height: 100dvh;
-      padding: 20px 14px calc(24px + env(safe-area-inset-bottom));
-    }
-
-    .app {
-      width: min(720px, 100%);
-      margin: 0 auto;
-      min-height: calc(100dvh - 44px);
-      display: grid;
-      grid-template-rows: auto minmax(260px, 1fr) auto;
-      gap: 14px;
-    }
-
-    .header {
-      padding: 6px 2px 0;
-    }
-
-    h1 {
-      margin: 0 0 6px;
-      font-size: clamp(28px, 7vw, 46px);
-      line-height: 1;
-      letter-spacing: -0.04em;
-    }
-
-    .subtitle {
-      margin: 0;
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.45;
-    }
-
-    .feed {
-      overflow-y: auto;
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      background: var(--card);
-      padding: 12px;
-      min-height: 0;
-      box-shadow: 0 12px 35px rgba(0,0,0,.04);
-    }
-
-    .empty {
-      height: 100%;
-      min-height: 220px;
-      display: grid;
-      place-items: center;
-      color: var(--muted);
-      text-align: center;
-      padding: 30px;
-    }
-
-    .message {
-      padding: 13px 14px;
-      border-radius: 15px;
-      background: #f7f7f4;
-      margin-bottom: 9px;
-      overflow-wrap: anywhere;
-    }
-
-    .message:last-child { margin-bottom: 0; }
-
-    .meta {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 5px;
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    .text {
-      white-space: pre-wrap;
-      font-size: 16px;
-      line-height: 1.45;
-    }
-
-    .composer {
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      padding: 12px;
-      background: var(--card);
-      box-shadow: 0 12px 35px rgba(0,0,0,.04);
-    }
-
-    textarea {
-      width: 100%;
-      min-height: 92px;
-      resize: vertical;
-      border: 0;
-      outline: 0;
-      padding: 5px 4px 10px;
-      background: transparent;
-      color: var(--text);
-      font: inherit;
-      font-size: 17px;
-      line-height: 1.4;
-    }
-
-    textarea::placeholder { color: #a4a49c; }
-
-    .composer-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .status {
-      min-height: 18px;
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    .status.error { color: var(--danger); }
-
-    button {
-      border: 0;
-      border-radius: 999px;
-      background: var(--button);
-      color: var(--button-text);
-      padding: 12px 20px;
-      font: inherit;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    button:disabled {
-      opacity: .45;
-      cursor: default;
-    }
-
-    @media (max-width: 520px) {
-      body { padding: 14px 10px calc(14px + env(safe-area-inset-bottom)); }
-      .app { min-height: calc(100dvh - 28px); gap: 10px; }
-      .feed, .composer { border-radius: 17px; }
-      .feed { padding: 9px; }
-      .message { padding: 12px; }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Анонимные факты</title>
+<style>
+:root{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:#151515;background:#f4f4f1}
+*{box-sizing:border-box}body{margin:0;min-height:100dvh;padding:16px 12px calc(16px + env(safe-area-inset-bottom))}
+.app{width:min(720px,100%);min-height:calc(100dvh - 32px);margin:auto;display:grid;grid-template-rows:auto minmax(260px,1fr) auto;gap:12px}
+h1{margin:0 0 6px;font-size:clamp(30px,7vw,48px);letter-spacing:-.04em;line-height:1}.sub{margin:0;color:#77776f;line-height:1.4}
+.panel{background:#fff;border:1px solid #e3e3dc;border-radius:20px;box-shadow:0 12px 35px rgba(0,0,0,.04)}
+#feed{overflow:auto;padding:10px;min-height:0}.empty{height:100%;min-height:220px;display:grid;place-items:center;text-align:center;color:#77776f;padding:30px}
+.msg{padding:13px 14px;border-radius:15px;background:#f7f7f4;margin-bottom:9px;overflow-wrap:anywhere}.msg:last-child{margin-bottom:0}
+.meta{display:flex;justify-content:space-between;gap:12px;margin-bottom:5px;color:#77776f;font-size:12px}.text{white-space:pre-wrap;font-size:16px;line-height:1.45}
+form{padding:12px}textarea{width:100%;min-height:90px;border:0;outline:0;resize:vertical;padding:5px 4px 10px;background:transparent;color:#151515;font:inherit;font-size:17px;line-height:1.4}
+.foot{display:flex;align-items:center;justify-content:space-between;gap:12px}.status{font-size:12px;color:#77776f}.status.err{color:#a52a2a}
+button{border:0;border-radius:999px;background:#151515;color:#fff;padding:12px 20px;font:inherit;font-weight:700;cursor:pointer}button:disabled{opacity:.45}
+</style>
 </head>
 <body>
-  <main class="app">
-    <header class="header">
-      <h1>Анонимные факты</h1>
-      <p class="subtitle">Напиши один факт. Имя не спрашиваем — сообщение сразу появится в общей ленте.</p>
-    </header>
+<main class="app">
+<header><h1>Анонимные факты</h1><p class="sub">Напиши факт. Имя не спрашиваем — сообщение сразу появится в общей ленте.</p></header>
+<section id="feed" class="panel" aria-live="polite"><div id="empty" class="empty">Пока здесь тихо.<br>Отправь первый факт 👀</div></section>
+<form id="form" class="panel">
+<textarea id="fact" maxlength="600" placeholder="Напиши свой факт…" required></textarea>
+<div class="foot"><div id="status" class="status">Ctrl/⌘ + Enter — отправить</div><button id="send">Отправить</button></div>
+</form>
+</main>
+<script>
+const TOPIC='facts-chat-CkT8Gc6RxIXWE7PtN0sIDA';
+const API=`https://ntfy.sh/${TOPIC}`;
+const feed=document.querySelector('#feed');
+const empty=document.querySelector('#empty');
+const form=document.querySelector('#form');
+const input=document.querySelector('#fact');
+const send=document.querySelector('#send');
+const statusEl=document.querySelector('#status');
+const seen=new Set();
+const messages=[];
 
-    <section id="feed" class="feed" aria-live="polite">
-      <div id="empty" class="empty">Пока здесь тихо.<br>Отправь первый факт 👀</div>
-    </section>
+function status(text,error=false){
+  statusEl.textContent=text;
+  statusEl.classList.toggle('err',error);
+}
 
-    <form id="composer" class="composer">
-      <textarea id="fact" maxlength="600" placeholder="Напиши свой факт…" required></textarea>
-      <div class="composer-footer">
-        <div id="status" class="status">Ctrl/⌘ + Enter — отправить</div>
-        <button id="send" type="submit">Отправить</button>
-      </div>
-    </form>
-  </main>
+function time(ts){
+  return new Intl.DateTimeFormat('ru-RU',{hour:'2-digit',minute:'2-digit'}).format(new Date(ts*1000));
+}
 
-  <script>
-    const TOPIC = 'facts-chat-CkT8Gc6RxIXWE7PtN0sIDA';
-    const API = `https://ntfy.sh/${TOPIC}`;
-    const feed = document.getElementById('feed');
-    const empty = document.getElementById('empty');
-    const form = document.getElementById('composer');
-    const input = document.getElementById('fact');
-    const send = document.getElementById('send');
-    const status = document.getElementById('status');
+function render(){
+  messages.sort((a,b)=>a.time-b.time||a.id.localeCompare(b.id));
+  feed.innerHTML='';
+  if(!messages.length){feed.appendChild(empty);return;}
+  for(const item of messages){
+    const card=document.createElement('article');
+    card.className='msg';
+    const meta=document.createElement('div');
+    meta.className='meta';
+    const author=document.createElement('span');
+    author.textContent='Аноним';
+    const when=document.createElement('time');
+    when.textContent=time(item.time);
+    const text=document.createElement('div');
+    text.className='text';
+    text.textContent=item.message;
+    meta.append(author,when);
+    card.append(meta,text);
+    feed.appendChild(card);
+  }
+}
 
-    const seen = new Set();
-    const messages = [];
+function add(item,scroll=true){
+  if(!item||item.event!=='message'||!item.id||seen.has(item.id))return;
+  seen.add(item.id);
+  messages.push(item);
+  render();
+  if(scroll)requestAnimationFrame(()=>feed.scrollTop=feed.scrollHeight);
+}
 
-    function setStatus(text, isError = false) {
-      status.textContent = text;
-      status.classList.toggle('error', isError);
+async function history(){
+  try{
+    const r=await fetch(`${API}/json?poll=1&since=all`,{cache:'no-store'});
+    if(!r.ok)throw new Error(`HTTP ${r.status}`);
+    for(const line of (await r.text()).split('\n')){
+      if(line.trim())add(JSON.parse(line),false);
     }
+    feed.scrollTop=feed.scrollHeight;
+  }catch(e){
+    console.error(e);
+    status('История не загрузилась. Новые сообщения всё равно могут прийти.',true);
+  }
+}
 
-    function formatTime(unixSeconds) {
-      return new Intl.DateTimeFormat('ru-RU', {
-        hour: '2-digit',
-        minute: '2-digit'
-      }).format(new Date(unixSeconds * 1000));
-    }
+function live(){
+  const es=new EventSource(`${API}/sse`);
+  es.onopen=()=>status('Ctrl/⌘ + Enter — отправить');
+  es.onmessage=e=>{try{add(JSON.parse(e.data));}catch(err){console.error(err);}};
+  es.onerror=()=>status('Переподключаюсь к общему чату…');
+}
 
-    function render() {
-      messages.sort((a, b) => a.time - b.time || a.id.localeCompare(b.id));
-      feed.innerHTML = '';
+async function submit(){
+  const fact=input.value.trim();
+  if(!fact||send.disabled)return;
+  send.disabled=true;
+  input.disabled=true;
+  status('Отправляю…');
+  try{
+    const r=await fetch(API,{method:'POST',body:fact});
+    if(!r.ok)throw new Error(`HTTP ${r.status}`);
+    input.value='';
+    status('Отправлено анонимно ✓');
+  }catch(e){
+    console.error(e);
+    status(`Не отправилось: ${e.message}`,true);
+  }finally{
+    send.disabled=false;
+    input.disabled=false;
+    input.focus();
+  }
+}
 
-      if (!messages.length) {
-        feed.appendChild(empty);
-        return;
-      }
-
-      messages.forEach((item) => {
-        const card = document.createElement('article');
-        card.className = 'message';
-
-        const meta = document.createElement('div');
-        meta.className = 'meta';
-
-        const author = document.createElement('span');
-        author.textContent = 'Аноним';
-
-        const time = document.createElement('time');
-        time.textContent = formatTime(item.time);
-
-        const text = document.createElement('div');
-        text.className = 'text';
-        text.textContent = item.message;
-
-        meta.append(author, time);
-        card.append(meta, text);
-        feed.appendChild(card);
-      });
-    }
-
-    function addMessage(item, scroll = true) {
-      if (!item || item.event !== 'message' || !item.id || seen.has(item.id)) return;
-      seen.add(item.id);
-      messages.push(item);
-      render();
-
-      if (scroll) {
-        requestAnimationFrame(() => {
-          feed.scrollTop = feed.scrollHeight;
-        });
-      }
-    }
-
-    async function loadHistory() {
-      try {
-        const response = await fetch(`${API}/json?poll=1&since=all`, { cache: 'no-store' });
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-
-        const text = await response.text();
-        for (const line of text.split('\n')) {
-          if (!line.trim()) continue;
-          addMessage(JSON.parse(line), false);
-        }
-        feed.scrollTop = feed.scrollHeight;
-      } catch (error) {
-        console.error(error);
-        setStatus('Не удалось загрузить историю. Новые сообщения всё равно могут прийти.', true);
-      }
-    }
-
-    function connectLive() {
-      const source = new EventSource(`${API}/sse`);
-
-      source.onopen = () => {
-        if (!send.disabled) setStatus('Ctrl/⌘ + Enter — отправить');
-      };
-
-      source.onmessage = (event) => {
-        try {
-          addMessage(JSON.parse(event.data));
-        } catch (error) {
-          console.error('Bad realtime message', error);
-        }
-      };
-
-      source.onerror = () => {
-        setStatus('Переподключаюсь к общему чату…');
-      };
-    }
-
-    async function submitFact() {
-      const fact = input.value.trim();
-      if (!fact || send.disabled) return;
-
-      send.disabled = true;
-      input.disabled = true;
-      setStatus('Отправляю…');
-
-      try {
-        const response = await fetch(API, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'text/plain;charset=UTF-8',
-            'Title': 'Анонимный факт',
-            'Firebase': 'no'
-          },
-          body: fact
-        });
-
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-
-        input.value = '';
-        setStatus('Отправлено анонимно ✓');
-        setTimeout(() => {
-          if (!send.disabled) setStatus('Ctrl/⌘ + Enter — отправить');
-        }, 1800);
-      } catch (error) {
-        console.error(error);
-        setStatus('Не отправилось. Попробуй ещё раз.', true);
-      } finally {
-        send.disabled = false;
-        input.disabled = false;
-        input.focus();
-      }
-    }
-
-    form.addEventListener('submit', (event) => {
-      event.preventDefault();
-      submitFact();
-    });
-
-    input.addEventListener('keydown', (event) => {
-      if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') {
-        event.preventDefault();
-        submitFact();
-      }
-    });
-
-    connectLive();
-    loadHistory();
-  </script>
+form.addEventListener('submit',e=>{e.preventDefault();submit();});
+input.addEventListener('keydown',e=>{
+  if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){e.preventDefault();submit();}
+});
+live();
+history();
+</script>
 </body>
 </html>
